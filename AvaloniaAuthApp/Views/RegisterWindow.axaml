@@ -1,0 +1,17 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaAuthApp.ViewModels"
+        x:Class="AvaloniaAuthApp.Views.RegisterWindow"
+        x:DataType="vm:RegisterViewModel"
+        Title="Регистрация" Width="400" Height="300">
+
+    <StackPanel Margin="20" Spacing="10">
+        <TextBlock Text="Регистрация" FontWeight="Bold" FontSize="18"/>
+        <TextBox Text="{Binding Email}" PlaceholderText="Email" IsEnabled="{Binding !IsBusy}"/>
+        <TextBox Text="{Binding Name}" PlaceholderText="Имя" IsEnabled="{Binding !IsBusy}"/>
+        <TextBox Text="{Binding Password}" PasswordChar="*" PlaceholderText="Пароль" IsEnabled="{Binding !IsBusy}"/>
+        <Button Content="Зарегистрироваться" Command="{Binding RegisterCommand}"
+                IsEnabled="{Binding !IsBusy}"/>
+        <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" TextWrapping="Wrap"/>
+    </StackPanel>
+</Window>

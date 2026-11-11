@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaAuthApp.ViewModels"
+             x:Class="AvaloniaAuthApp.Views.AuthView"
+             x:DataType="vm:AuthViewModel">
+
+    <Border BorderBrush="Gray" BorderThickness="1" Padding="10" CornerRadius="4">
+        <StackPanel Spacing="8">
+            <!-- Если НЕ авторизован -->
+            <StackPanel IsVisible="{Binding !IsAuthenticated}" Spacing="8">
+                <TextBlock Text="Авторизация" FontWeight="Bold" FontSize="16"/>
+                <TextBox Text="{Binding Email}" PlaceholderText="Email" IsEnabled="{Binding !IsBusy}"/>
+                <TextBox Text="{Binding Password}" PasswordChar="*" PlaceholderText="Пароль"/>
+                <Button Content="Войти" Command="{Binding LoginCommand}"
+                        IsEnabled="{Binding !IsBusy}"/>
+                <Button Content="Регистрация" Command="{Binding OpenRegisterDialogCommand}" IsEnabled="{Binding !IsBusy}"/>
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" TextWrapping="Wrap"/>
+            </StackPanel>
+
+            <!-- Если авторизован -->
+            <StackPanel IsVisible="{Binding IsAuthenticated}" Spacing="8">
+                <TextBlock Text="Вы авторизованы" FontWeight="Bold"/>
+                <TextBlock Text="{Binding CurrentUser.Name, StringFormat='Имя: {0}'}"/>
+                <Button Content="Выйти" Command="{Binding LogoutCommand}"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

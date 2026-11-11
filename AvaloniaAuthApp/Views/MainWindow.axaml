@@ -1,0 +1,35 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaAuthApp.ViewModels"
+        xmlns:views="using:AvaloniaAuthApp.Views"
+        x:Class="AvaloniaAuthApp.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="Avalonia Auth App" Width="900" Height="600">
+
+    <Grid ColumnDefinitions="2*,1*">
+        <!-- Левая панель: навигация и активный раздел -->
+        <Grid RowDefinitions="Auto,*">
+            <StackPanel Orientation="Horizontal" Margin="10" Spacing="10">
+                <ItemsControl ItemsSource="{Binding NavigationItems}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="10"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding Title}"
+                                    Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).SelectViewCommand}"
+                                    CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+
+            <ContentControl Grid.Row="1" Content="{Binding CurrentView}" Margin="10"/>
+        </Grid>
+
+        <!-- Правая панель: AuthView -->
+        <views:AuthView Grid.Column="1" DataContext="{Binding AuthViewModel}" Margin="10"/>
+    </Grid>
+</Window>

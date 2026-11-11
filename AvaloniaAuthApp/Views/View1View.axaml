@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaAuthApp.ViewModels"
+             x:Class="AvaloniaAuthApp.Views.View1View"
+             x:DataType="vm:View1ViewModel">
+
+    <StackPanel Spacing="10">
+        <TextBlock Text="Главная" FontWeight="Bold" FontSize="18"/>
+
+        <!-- Не авторизован -->
+        <TextBlock Text="Пожалуйста, авторизуйтесь или зарегистрируйтесь."
+                   IsVisible="{Binding !IsAuthenticated}" Foreground="Orange"/>
+
+        <!-- Авторизован -->
+        <Grid IsVisible="{Binding IsAuthenticated}" ColumnDefinitions="*,Auto" RowDefinitions="Auto">
+            <StackPanel Grid.Column="0" Spacing="0">
+                <TextBlock Text="{Binding User.Id, StringFormat='ID: {0}'}"/>
+                <TextBlock Text="{Binding User.Email, StringFormat='Email: {0}'}"/>
+                <TextBlock Text="{Binding User.Name, StringFormat='Имя: {0}'}"/>
+                <TextBlock Text="{Binding User.Role, StringFormat='Роль: {0}'}"/>
+            </StackPanel>
+            <Image Grid.Column="1" Source="{Binding AvatarImage}" Width="96" Height="96" Stretch="UniformToFill" VerticalAlignment="Top" Margin="10,0,0,0"/>
+        </Grid>
+
+        <TextBlock Text="{Binding ErrorMessage}" Foreground="Red"/>
+    </StackPanel>
+</UserControl>
